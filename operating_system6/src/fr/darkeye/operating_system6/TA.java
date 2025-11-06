@@ -1,0 +1,34 @@
+package fr.darkeye.operating_system6;
+import java.io.*;
+
+public class TA extends Thread {
+	PipedInputStream is; PipedOutputStream os;
+	String fichier;
+	TA(PipedInputStream is, PipedOutputStream os, String fichier){
+		this.is = is;
+		this.os = os;
+		this.fichier = fichier;
+	}
+	String LireFichier(String file) {
+		BufferedReader reader;
+		String text, ligne = "";
+		try {
+			reader = new BufferedReader(new FileReader(file));
+			while((text=reader.readLine())!=null) {ligne = ligne+text;}
+		} catch (IOException exc) {System.out.println("Erreur d'E/S");}
+		return(ligne);
+	}
+	public void run() {
+		try {
+			String ligne = LireFichier(fichier);
+			DataOutputStream ps = new DataOutputStream(os);
+			ps.writeInt(ligne.length());
+			ps.writeBytes(ligne);
+			System.out.println("ThreadA => le texte ecrit dans PipeA est : " + ligne);
+			ps.flush();
+			DataInputStream dis = new DataInputStream (is);
+			int somme = dis.readInt();
+			System.out.println("ThreadA => la somme des nombres, lus a partir du PipeB: " +somme);
+		} catch (IOException e) {}
+	}
+}

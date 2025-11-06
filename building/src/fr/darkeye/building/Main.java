@@ -1,0 +1,64 @@
+package fr.darkeye.building;
+
+//Hashmap method
+import java.util.*;
+class Main {
+public static void main(String[] args) {
+  HashMap<String,Integer> cp = new HashMap<String,Integer>();
+  Scanner sc = new Scanner(System.in);
+  for(int i = 0; i < 3; i++){
+    int a = sc.nextInt();
+    int c = sc.nextInt();
+    int d = sc.nextInt();
+    int e = sc.nextInt();
+    int v = e*d*c-(((e-a-a)*(e-a-a)*3*c)/2);
+    int cc = v*50;
+    if(i==0){
+      cp.put("Paris", cc);
+    }
+    else if(i==1){
+      cp.put("Rome", cc);
+    }
+    else{
+      cp.put("London", cc);
+    }
+  }
+sc.close();
+System.out.println(cp);
+}
+}
+//2d array method
+/*
+import java.util.*;
+class Main {
+public static void main(String[] args) {
+  String[] arr1 = {"Paris", "Rome", "London"};
+  String[][] arr = new String[3][2];
+  for(int i = 0; i < 3; i++){
+    Scanner sc = new Scanner(System.in);
+    int a = sc.nextInt();
+    int b = sc.nextInt();
+    int c = sc.nextInt();
+    int d = sc.nextInt();
+    int e = sc.nextInt();
+    int v = e*d*c-(((e-b-a)*(e-b-a)*3*c)/2);
+    int cc = v*50;
+    String str=String.valueOf(cc);
+    for(int j = 0; j < 2; j++){
+      if(j == 0){
+        arr[i][j] = arr1[i];
+      }
+      else{
+        arr[i][j] = str;
+      }
+    }
+  }
+  for(int i = 0; i < 3; i++){
+    System.out.println(" ");
+    for(int j = 0; j < 2; j++){
+      System.out.print(arr[i][j] + " -> ");
+    }
+  }
+}
+}
+*/

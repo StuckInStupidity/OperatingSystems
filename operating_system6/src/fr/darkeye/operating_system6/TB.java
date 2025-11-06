@@ -1,0 +1,35 @@
+package fr.darkeye.operating_system6;
+import java.io.*;
+import java.util.*;
+
+public class TB extends Thread {
+	PipedInputStream is; PipedOutputStream os;
+	TB(PipedInputStream is, PipedOutputStream os){
+		this.is = is;
+		this.os = os;
+	}
+	int Somme(String res) {
+		int somme = 0;
+		StringTokenizer st = new StringTokenizer(res, " ");
+		try {
+			while(st.hasMoreTokens()) {
+				somme = somme + Integer.parseInt(st.nextToken());
+			}
+		} catch (NumberFormatException ioe) {System.out.println("NumberFormatException: " +ioe.getMessage());}
+		return somme;
+	}
+	public void run() {
+		try {
+			DataInputStream dis = new DataInputStream(is);
+			int longueur = dis.readInt();
+			byte lu [] = new byte[longueur];
+			dis.readFully(lu);
+			String t = new String(lu);
+			System.out.println("ThreadB => texte lu a partir de PipeA : " + t);
+			int somme = Somme(t);
+			DataOutputStream ps = new DataOutputStream(os);
+			ps.write(somme);
+			System.out.println("ThreadB => nombre ecrit dans PipeB : " + somme);
+		} catch (IOException e) {}
+	}
+}

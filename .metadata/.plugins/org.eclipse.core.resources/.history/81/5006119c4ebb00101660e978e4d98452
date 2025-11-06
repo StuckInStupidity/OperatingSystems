@@ -1,0 +1,22 @@
+package fr.darkeye.operating_system5;
+import java.lang.ref.*;
+import java.util.*;
+
+public class Main {
+	public static void main(String[] args) {
+		try {
+			ReferenceQueue file = new ReferenceQueue();
+			Object obj = new Object();
+			PhantomReference ref = new PhantomReference(obj, file);
+			System.out.println("*** apres creation de l'objet...");
+			System.out.println("contenu de ref: " + ref.get());
+			System.out.println("Ref dans la file: " + ref.isEnqueued());
+			obj = null; //suppression de l'objet
+			System.out.println();
+			System.out.println("*** lancement du RM...");
+			//System.gc();
+			System.out.println("contenu de ref : " + ref.get());
+			System.out.println("est deja dans la file si reponse fausse: " + ref.enqueue());
+		} catch (Exception e) {System.err.println("An exception occured:"); e.printStackTrace();}		
+	}
+}

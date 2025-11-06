@@ -1,0 +1,33 @@
+package fr.darkeye.operating_system5;
+import java.lang.ref.*;
+import java.util.*;
+
+public class Main {
+	public static void main(String[] args) {
+		try {
+			ReferenceQueue file = new ReferenceQueue();
+			Object obj = new Object();
+			PhantomReference ref = new PhantomReference(obj, file);
+			System.out.println("*** apres creation de l'objet...");
+			System.out.println("contenu de ref: " + ref.get());
+			System.out.println("Ref dans la file: " + ref.isEnqueued());
+			obj = null;
+			System.out.println();
+			System.out.println("*** apres suppression de l'objet...");
+			System.out.println("contenu de ref: " + ref.get());
+			System.out.println("Ref dans la file: " + ref.isEnqueued());
+			System.out.println();
+			System.out.println("\n*** lancement du RM...");
+			System.out.println("*** Attente que le GC récupère l'objet...");
+            int maxTries = 10;
+            int tries = 0;
+            while (!ref.isEnqueued() && tries < maxTries) {
+                Thread.sleep(500); // pause pour laisser le GC agir
+                System.gc();       // relance du GC
+                tries++;
+            }
+            System.out.println("\nRéférence récupérée dans la file apres " + tries + " forcages");
+            
+		} catch (Exception e) {System.err.println("An exception occured:"); e.printStackTrace();}		
+	}
+}

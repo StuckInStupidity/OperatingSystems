@@ -1,0 +1,50 @@
+package fr.darkeye.conversion;
+
+import java.util.*;
+class Main {
+  public static void main(String[] args) {
+    System.out.println("enter the amont of unit: ");
+    Scanner sc = new Scanner(System.in);
+    int nb = sc.nextInt();
+    sc.close();
+    System.out.println("enter the type of unit: ");
+    Scanner sca = new Scanner(System.in);
+    String str = sca.next();
+    sca.close();
+    String ref1 = new String("kgs");
+    String ref2 = new String("lbs");
+    String ref3 = new String("feet");
+    String ref4 = new String("meters");
+    String ref5 = new String("miles");
+    String ref6 = new String("kms");
+    boolean result1 = str.equals(ref1);
+    boolean result2 = str.equals(ref2);
+    boolean result3 = str.equals(ref3);
+    boolean result4 = str.equals(ref4);
+    boolean result5 = str.equals(ref5);
+    boolean result6 = str.equals(ref6);
+    if(result1 == true){
+      System.out.println("result: " + nb*2.205 + " lbs");
+    }
+    else if(result2 == true){
+      System.out.println("result: " + nb/2.205 + " kgs");
+    }
+    else if(result3 == true){
+      System.out.println("result: " + nb*3.281 + " meters");
+    }
+    else if(result4 == true){
+      System.out.println("result: " + nb/3.281 + " feet");
+    }
+    else if(result5 == true){
+      System.out.println("result: " + nb*1.609
+ + " kms");
+    }
+    else if(result6 == true){
+      System.out.println("result: " + nb/1.609
+ + " miles");
+    }
+    else{
+      System.out.println("Wrong type");
+    }
+  }
+}
